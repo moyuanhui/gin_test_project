@@ -1,0 +1,40 @@
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /test                     --> main.main.func1 (3 handlers)
+[GIN-debug] Listening and serving HTTP on :8080
+
+
+[31m2019/09/06 15:34:06 [Recovery] 2019/09/06 - 15:34:06 panic recovered:
+GET /test?name=12 HTTP/1.1
+Host: localhost:8080
+Accept: */*
+User-Agent: curl/7.65.3
+
+
+test panic
+D:/gopath/src/github.com/myh/gin_test_project/middleware_gin/main.go:20 (0x8de827)
+	main.func1: panic("test panic")
+D:/gopath/src/github.com/gin-gonic/gin/context.go:147 (0x8c8850)
+	(*Context).Next: c.handlers[c.index](c)
+D:/gopath/src/github.com/gin-gonic/gin/recovery.go:83 (0x8dc690)
+	RecoveryWithWriter.func1: c.Next()
+D:/gopath/src/github.com/gin-gonic/gin/context.go:147 (0x8c8850)
+	(*Context).Next: c.handlers[c.index](c)
+D:/gopath/src/github.com/gin-gonic/gin/logger.go:240 (0x8db727)
+	LoggerWithConfig.func1: c.Next()
+D:/gopath/src/github.com/gin-gonic/gin/context.go:147 (0x8c8850)
+	(*Context).Next: c.handlers[c.index](c)
+D:/gopath/src/github.com/gin-gonic/gin/gin.go:391 (0x8d2940)
+	(*Engine).handleHTTPRequest: c.Next()
+D:/gopath/src/github.com/gin-gonic/gin/gin.go:352 (0x8d2024)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+C:/Go/src/net/http/server.go:2774 (0x6a7d8e)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+C:/Go/src/net/http/server.go:1878 (0x6a3877)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+C:/Go/src/runtime/asm_amd64.s:1337 (0x458d80)
+	goexit: BYTE	$0x90	// NOP
+[0m
+[GIN] 2019/09/06 - 15:34:06 | 500 |     22.0043ms |             ::1 | GET      /test?name=12
